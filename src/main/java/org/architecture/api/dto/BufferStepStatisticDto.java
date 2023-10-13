@@ -6,7 +6,7 @@ import org.architecture.statistic.BufferStepStatistic;
 @Data
 public class BufferStepStatisticDto {
 
-    private RequestDto[] requests;
+    private BufferSlotDto[] requests;
     private int pointer;
     private int bufferSize;
     private int lastAdded;
@@ -18,11 +18,14 @@ public class BufferStepStatisticDto {
         dto.setPointer(step.getPointer());
         dto.setCountRequest(step.getCountRequest());
         dto.setLastAdded(step.getLastAdded());
-        RequestDto[] requestDtos = new RequestDto[step.getRequests().length];
+        BufferSlotDto[] requestDtos = new BufferSlotDto[step.getRequests().length];
         for (int i = 0; i < step.getRequests().length; i++) {
-            if(step.getRequests()[i] != null) {
-                requestDtos[i] = RequestDto.toDto(step.getRequests()[i]);
-            }
+            BufferSlotDto bufferSlotDto = new BufferSlotDto();
+            bufferSlotDto.setSlotId(i);
+            boolean isFree = step.getRequests()[i] == null;
+            bufferSlotDto.setFree(isFree);
+            bufferSlotDto.setRequestId(isFree ? -1 : step.getRequests()[i].getRequestId());
+            requestDtos[i] = bufferSlotDto;
         }
         dto.setRequests(requestDtos);
         return dto;

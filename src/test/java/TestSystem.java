@@ -19,6 +19,5 @@ public class TestSystem {
         ReportGenerator reportGenerator = new ReportGenerator("D:\\programming\\Architecture of software systems\\src\\main\\resources\\reports");
         reportGenerator.generateXLSXReport(simulatedSystem.getStatistic(), "Report" + ".xlsx");
 
-
     }
 }
