@@ -22,20 +22,29 @@ public class ReportGenerator {
         this.path = path;
     }
 
+    public ReportGenerator() {
+        this.path = "";
+    }
+
     public void generateXLSXReport(Statistic statistic, String filename, int... steps) {
         File file = new File(path + "\\" + filename);
-        try (Workbook wb = new SXSSFWorkbook(); FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            createSourceReportSheet(wb, statistic);
-            createDeviceReportSheet(wb, statistic);
-            for (int step : steps) {
-                if (step < statistic.getSystemStatistic().getStepCount()) {
-                    createStepSheet(wb, statistic.getSystemStatistic().getStep(step));
-                }
-            }
+        try (Workbook wb = generateXLSXReport(statistic, steps); FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             wb.write(fileOutputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Workbook generateXLSXReport(Statistic statistic, int... steps) {
+        Workbook wb = new SXSSFWorkbook();
+        createSourceReportSheet(wb, statistic);
+        createDeviceReportSheet(wb, statistic);
+        for (int step : steps) {
+            if (step < statistic.getSystemStatistic().getStepCount()) {
+                createStepSheet(wb, statistic.getSystemStatistic().getStep(step));
+            }
+        }
+        return wb;
     }
 
     private void createStepSheet(Workbook wb, SystemStep step) {

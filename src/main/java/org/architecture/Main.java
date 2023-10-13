@@ -3,15 +3,11 @@ package org.architecture;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Random;
-
 @SpringBootApplication
 public class Main {
 
     private static final float tAlpha = 1.643f;
     private static final float delta = 0.1f;
-
-    private static final Random random = new Random();
 
     public static void main(String[] args) {
 

@@ -7,9 +7,15 @@ import org.architecture.api.dto.SystemStepDto;
 import org.architecture.api.exceptions.SystemNotSimulatedException;
 import org.architecture.api.exceptions.WrongStepException;
 import org.architecture.api.services.SimulationService;
+import org.architecture.api.services.impl.SimulationServiceImpl;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping
@@ -18,7 +24,7 @@ public class SimulationController {
 
     private final SimulationService simulationService;
 
-    public SimulationController(SimulationService simulationService) {
+    public SimulationController(SimulationServiceImpl simulationService) {
         this.simulationService = simulationService;
     }
 
@@ -42,6 +48,27 @@ public class SimulationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    @GetMapping(value = "/simulate/generate-report")
+    public ResponseEntity<ByteArrayResource> generateStatistic() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "force-download"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Report.xlsx");
+
+        try {
+            return new ResponseEntity<>(new ByteArrayResource(simulationService.generateReport().toByteArray()),
+                    headers, HttpStatus.CREATED);
+        } catch (SystemNotSimulatedException simulatedException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (WrongStepException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+        }
+    }
+
 
     @PostMapping("/simulate/clear")
     public boolean clearSystem() {

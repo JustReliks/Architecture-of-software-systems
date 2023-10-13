@@ -5,6 +5,7 @@ import org.architecture.statistic.SystemStep;
 
 @Data
 public class SystemStepDto {
+
     private float time;
     private int stepCount;
     private EventInformationDto eventInformation;
