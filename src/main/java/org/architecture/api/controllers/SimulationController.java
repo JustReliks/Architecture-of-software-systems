@@ -1,9 +1,7 @@
 package org.architecture.api.controllers;
 
 import jakarta.validation.constraints.Min;
-import org.architecture.api.dto.StatisticDto;
-import org.architecture.api.dto.SystemConfigurationDto;
-import org.architecture.api.dto.SystemStepDto;
+import org.architecture.api.dto.*;
 import org.architecture.api.exceptions.SystemNotSimulatedException;
 import org.architecture.api.exceptions.WrongStepException;
 import org.architecture.api.services.SimulationService;
@@ -37,6 +35,27 @@ public class SimulationController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
         }
     }
+
+    @GetMapping("/simulate/edges")
+    public ResponseEntity<SimulationEdgesDto> getSimulationEdges() {
+        try {
+            return ResponseEntity.ok(simulationService.getEdges());
+
+        } catch (SystemNotSimulatedException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/simulate/nodes")
+    public ResponseEntity<SimulationNodesDto> getSimulationNodes(@RequestParam(name = "step") @Min(0) int step) {
+        try {
+            return ResponseEntity.ok(simulationService.getNodes(step));
+
+        } catch (SystemNotSimulatedException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 
     @GetMapping("/simulate/statistic")
     public ResponseEntity<SystemStepDto> getSystemStep(@RequestParam(name = "step") @Min(0) int step) {

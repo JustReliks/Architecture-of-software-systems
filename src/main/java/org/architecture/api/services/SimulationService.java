@@ -1,5 +1,7 @@
 package org.architecture.api.services;
 
+import org.architecture.api.dto.SimulationEdgesDto;
+import org.architecture.api.dto.SimulationNodesDto;
 import org.architecture.statistic.Statistic;
 import org.architecture.statistic.SystemStep;
 import org.architecture.system.SystemConfiguration;
@@ -15,5 +17,9 @@ public interface SimulationService {
 
     ByteArrayOutputStream generateReport() throws IOException;
 
+    SimulationEdgesDto getEdges();
+
     boolean clear();
+
+    SimulationNodesDto getNodes(int step);
 }

@@ -23,6 +23,7 @@ public class GenerateRequestEvent extends Event {
                 getTimeArrival(), sourceId, getRequest().getRequestId());
         system.getStatistic().addGenerated(sourceId);
         getInformation().put("sourceId", sourceId);
+        getInformation().put("requestId", getRequest().getRequestId());
         if (sourceId != getRequest().getSourceId()) {
             throw new SystemSimulatingException("Different sources");
         }
