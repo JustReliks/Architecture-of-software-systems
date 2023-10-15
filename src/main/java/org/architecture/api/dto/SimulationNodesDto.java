@@ -35,6 +35,8 @@ public class SimulationNodesDto {
                 data.setColor("#32b32b");
                 data.setDescription("Новая заявка: " + eventInformation.get("requestId"));
             }
+            nodeDto.setPosition(new PositionDto(0, i));
+
             nodeDto.setData(data);
             nodes.add(nodeDto);
         }
@@ -44,12 +46,18 @@ public class SimulationNodesDto {
         DataDto dataDp = new DataDto();
         dataDp.setLabel("ДП");
         dp.setData(dataDp);
+
+        dp.setPosition(new PositionDto(0, (double) system.getSourcesSize() / 2.0d));
+
         nodes.add(dp);
 
         NodeDto reject = new NodeDto();
         reject.setId("rej");
         DataDto dataRej = new DataDto();
         dataRej.setLabel("Отказ");
+
+        dp.setPosition(new PositionDto(0, system.getBuffer().getBufferSize() + 1));
+
 
         if (eventType == EventTypeEnum.REJECT) {
             dataRej.setColor("#CC3300");
@@ -78,6 +86,8 @@ public class SimulationNodesDto {
             } else {
                 data.setDescription("Пустой");
             }
+            nodeDto.setPosition(new PositionDto(0, i));
+
             nodeDto.setData(data);
             nodes.add(nodeDto);
         }
@@ -96,8 +106,11 @@ public class SimulationNodesDto {
             } else {
                 data.setDescription("Заявка: " + device.getRequestId().get());
             }
+            nodeDto.setPosition(new PositionDto(0, i));
             nodeDto.setData(data);
             nodes.add(nodeDto);
+            nodeDto.setPosition(new PositionDto(1, i));
+
         }
 
         NodeDto dv = new NodeDto();
@@ -105,6 +118,8 @@ public class SimulationNodesDto {
         DataDto dataDv = new DataDto();
         dataDv.setLabel("ДВ");
         dv.setData(dataDv);
+        dv.setPosition(new PositionDto(0, (double) systemStep.getDevices().length / 2d));
+
         nodes.add(dv);
 
 
