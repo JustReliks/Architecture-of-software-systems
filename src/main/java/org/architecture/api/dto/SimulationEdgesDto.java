@@ -15,13 +15,6 @@ public class SimulationEdgesDto {
         SimulationEdgesDto edgesDto = new SimulationEdgesDto();
         List<EdgeDto> edges = new ArrayList<>();
         for (int i = 0; i < system.getSourcesSize(); i++) {
-            if (i != system.getSourcesSize() - 1) {
-                EdgeDto edgeDto = new EdgeDto();
-                edgeDto.setId(String.format("es%d_s%d", i, i + 1));
-                edgeDto.setSource("s" + i);
-                edgeDto.setTarget("s" + (i + 1));
-                edges.add(edgeDto);
-            }
             EdgeDto edgeDto = new EdgeDto();
             edgeDto.setId(String.format("es%d_dp", i));
             edgeDto.setSource("s" + i);
