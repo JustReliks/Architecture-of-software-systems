@@ -56,7 +56,7 @@ public class SimulationNodesDto {
         DataDto dataRej = new DataDto();
         dataRej.setLabel("Отказ");
 
-        dp.setPosition(new PositionDto(0, system.getBuffer().getBufferSize() + 1));
+        reject.setPosition(new PositionDto(0, system.getBuffer().getBufferSize() + 1));
 
 
         if (eventType == EventTypeEnum.REJECT) {
