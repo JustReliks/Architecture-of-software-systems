@@ -33,13 +33,6 @@ public class SimulationEdgesDto {
             fromDp.setSource("dp");
             fromDp.setTarget("b" + i);
             edges.add(fromDp);
-            if (i != system.getSourcesSize() - 1) {
-                EdgeDto edgeDto = new EdgeDto();
-                edgeDto.setId(String.format("eb%d_b%d", i, (i + 1)));
-                edgeDto.setSource("b" + i);
-                edgeDto.setTarget("b" + (i + 1));
-                edges.add(edgeDto);
-            }
             EdgeDto toDv = new EdgeDto();
             toDv.setId(String.format("eb%d_dv", i));
             toDv.setSource("b" + i);
@@ -52,13 +45,6 @@ public class SimulationEdgesDto {
             fromDv.setSource("dv");
             fromDv.setTarget("d" + i);
             edges.add(fromDv);
-            if (i != system.getDevicesSize() - 1) {
-                EdgeDto edgeDto = new EdgeDto();
-                edgeDto.setId(String.format("ed%d_d%d", i, i + 1));
-                edgeDto.setSource("d" + i);
-                edgeDto.setTarget("d" + (i + 1));
-                edges.add(edgeDto);
-            }
         }
 
 
