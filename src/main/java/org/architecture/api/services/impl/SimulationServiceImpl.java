@@ -3,6 +3,7 @@ package org.architecture.api.services.impl;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.architecture.api.dto.SimulationEdgesDto;
 import org.architecture.api.dto.SimulationNodesDto;
+import org.architecture.api.dto.SystemStepSchemeDto;
 import org.architecture.api.exceptions.SystemNotSimulatedException;
 import org.architecture.api.exceptions.WrongStepException;
 import org.architecture.api.services.SimulationService;
@@ -59,7 +60,15 @@ public class SimulationServiceImpl implements SimulationService {
     @Override
     public SimulationNodesDto getNodes(int step) {
         if (system == null) throw new SystemNotSimulatedException();
+        if (step >= system.getStatistic().getSystemStatistic().getStepCount()) throw new WrongStepException();
         return SimulationNodesDto.toDto(system, step);
+    }
+
+    @Override
+    public SystemStepSchemeDto getStepScheme(int step) {
+        if (system == null) throw new SystemNotSimulatedException();
+        if (step >= system.getStatistic().getSystemStatistic().getStepCount()) throw new WrongStepException();
+        return SystemStepSchemeDto.toDto(system, step);
     }
 
 }

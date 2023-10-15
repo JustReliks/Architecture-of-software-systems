@@ -46,6 +46,17 @@ public class SimulationController {
         }
     }
 
+    @GetMapping("/simulate/scheme")
+    public ResponseEntity<SystemStepSchemeDto> getStepScheme(@RequestParam(name = "step") @Min(0) int step) {
+        try {
+            return ResponseEntity.ok(simulationService.getStepScheme(step));
+        } catch (SystemNotSimulatedException simulatedException) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (WrongStepException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
     @GetMapping("/simulate/nodes")
     public ResponseEntity<SimulationNodesDto> getSimulationNodes(@RequestParam(name = "step") @Min(0) int step) {
         try {
