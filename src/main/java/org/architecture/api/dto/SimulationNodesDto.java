@@ -33,7 +33,7 @@ public class SimulationNodesDto {
             data.setLabel("Источник №" + i);
             if (eventInformation.containsKey("sourceId") && eventInformation.get("sourceId") == i) {
                 data.setColor("#32b32b");
-                data.setDescription("Новая заявка: " + eventInformation.get("requestId"));
+                data.appendLabel("Новая заявка: " + eventInformation.get("requestId"));
             }
             nodeDto.setPosition(new PositionDto(0, i));
 
@@ -61,7 +61,7 @@ public class SimulationNodesDto {
 
         if (eventType == EventTypeEnum.REJECT) {
             dataRej.setColor("#CC3300");
-            dataRej.setDescription("Заявка: " + eventInformation.get("requestId"));
+            dataRej.appendLabel("Заявка: " + eventInformation.get("requestId"));
         }
         reject.setData(dataRej);
 
@@ -82,9 +82,9 @@ public class SimulationNodesDto {
                 data.setColor("#32b32b");
             }
             if (request != null) {
-                data.setDescription("Заявка: " + request.getRequestId());
+                data.appendLabel("Заявка: " + request.getRequestId());
             } else {
-                data.setDescription("Пустой");
+                data.appendLabel("Пустой");
             }
             nodeDto.setPosition(new PositionDto(0, i));
 
@@ -102,14 +102,13 @@ public class SimulationNodesDto {
                 data.setColor("#32b32b");
             }
             if (device.isFree()) {
-                data.setDescription("Свободен");
+                data.appendLabel("Свободен");
             } else {
-                data.setDescription("Заявка: " + device.getRequestId().get());
+                data.appendLabel("Заявка: " + device.getRequestId().get());
             }
             nodeDto.setPosition(new PositionDto(0, i));
             nodeDto.setData(data);
             nodes.add(nodeDto);
-            nodeDto.setPosition(new PositionDto(1, i));
 
         }
 
@@ -121,7 +120,6 @@ public class SimulationNodesDto {
         dv.setPosition(new PositionDto(0, (double) systemStep.getDevices().length / 2d));
 
         nodes.add(dv);
-
 
         simulationNodesDto.setNodes(nodes);
         return simulationNodesDto;

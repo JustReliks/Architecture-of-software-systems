@@ -11,6 +11,9 @@ public class DataDto {
 
     private String label;
     private String color;
-    private String description;
+
+    public void appendLabel(String append) {
+        label += "\n" + append;
+    }
 
 }

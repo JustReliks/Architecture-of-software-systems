@@ -21,11 +21,6 @@ public class SimulationEdgesDto {
             edgeDto.setTarget("dp");
             edges.add(edgeDto);
         }
-        EdgeDto reject = new EdgeDto();
-        reject.setId("edp_rej");
-        reject.setSource("dp");
-        reject.setTarget("rej");
-        edges.add(reject);
 
         for (int i = 0; i < system.getBuffer().getBufferSize(); i++) {
             EdgeDto fromDp = new EdgeDto();
@@ -39,6 +34,14 @@ public class SimulationEdgesDto {
             toDv.setTarget("dv");
             edges.add(toDv);
         }
+
+        EdgeDto reject = new EdgeDto();
+        reject.setId("edp_rej");
+        reject.setSource("dp");
+        reject.setTarget("rej");
+        edges.add(reject);
+
+
         for (int i = 0; i < system.getDevicesSize(); i++) {
             EdgeDto fromDv = new EdgeDto();
             fromDv.setId(String.format("edv_d%d", i));
